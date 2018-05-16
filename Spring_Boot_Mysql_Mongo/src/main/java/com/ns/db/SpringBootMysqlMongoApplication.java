@@ -9,5 +9,4 @@ public class SpringBootMysqlMongoApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SpringBootMysqlMongoApplication.class, args);
 	}
-	
 }
