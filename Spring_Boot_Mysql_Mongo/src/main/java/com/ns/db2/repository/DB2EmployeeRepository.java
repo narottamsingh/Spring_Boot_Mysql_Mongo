@@ -1,4 +1,4 @@
-package com.ns.db2.Repository;
+package com.ns.db2.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
