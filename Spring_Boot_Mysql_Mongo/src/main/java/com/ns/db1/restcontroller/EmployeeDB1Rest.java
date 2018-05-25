@@ -49,10 +49,14 @@ public class EmployeeDB1Rest {
 		    }
 		    String everything = sb.toString();
 		    String lines[] = everything.split("\\r?\\n");
-		    for (String agents : lines) {
-		    	String[] agent = agents.split(":");
-		    	if (agent.length >0) {
+		    for (String data : lines) {
+		    	String[] dataS = data.split(":");
+		    	if (dataS.length >0) {
 		    		DB1Employee db1Employee = new DB1Employee();
+		    		db1Employee.setId(Long.parseLong(dataS[0]));
+		    		db1Employee.setEmpName(dataS[1]);
+		    		db1Employee.setEmpId(dataS[2]);
+		    		db1Employee.setStatus(true);
 		    		db1EmployeesL.add(db1Employee);
 				}
 			}

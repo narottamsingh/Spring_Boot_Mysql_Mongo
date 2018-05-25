@@ -18,7 +18,7 @@ import com.ns.model.Datasource1Properties;
 
 @Configuration
 @DependsOn("transactionManager")
-@EnableJpaRepositories(basePackages="com.ns.db1.Repository", entityManagerFactoryRef = "db1EntityManager", transactionManagerRef = "transactionManager")
+@EnableJpaRepositories(basePackages="com.ns.db1.repository", entityManagerFactoryRef = "db1EntityManager", transactionManagerRef = "transactionManager")
 @EnableConfigurationProperties(Datasource1Properties.class)
 public class DB1Config {
 

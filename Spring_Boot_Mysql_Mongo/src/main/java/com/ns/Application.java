@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfigurat
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 @SpringBootApplication
-@EnableMongoRepositories(basePackages="com.ns.entity.mongo")
+@EnableMongoRepositories(basePackages="com.ns.mongo")
 @EnableAutoConfiguration(exclude = {JpaRepositoriesAutoConfiguration.class,HibernateJpaAutoConfiguration.class})
 public class Application {
 	public static void main(String[] args) {

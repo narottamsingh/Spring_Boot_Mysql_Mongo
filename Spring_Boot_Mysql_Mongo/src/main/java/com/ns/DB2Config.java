@@ -19,7 +19,7 @@ import com.ns.model.Datasource2Properties;
 
 @Configuration
 @DependsOn("transactionManager")
-@EnableJpaRepositories(basePackages = {"com.ns.db2.Repository"}, entityManagerFactoryRef = "db2EntityManager", transactionManagerRef = "transactionManager")
+@EnableJpaRepositories(basePackages = {"com.ns.db2.repository"}, entityManagerFactoryRef = "db2EntityManager", transactionManagerRef = "transactionManager")
 @EnableConfigurationProperties(Datasource2Properties.class)
 public class DB2Config {
 

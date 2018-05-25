@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ns.db1.entity.DB1Employee;
 import com.ns.db2.entity.DB2Employee;
 import com.ns.db2.repository.DB2EmployeeRepository;
 
@@ -50,10 +51,14 @@ public class EmployeeDB2Rest {
 		    }
 		    String everything = sb.toString();
 		    String lines[] = everything.split("\\r?\\n");
-		    for (String agents : lines) {
-		    	String[] agent = agents.split(":");
-		    	if (agent.length >0) {
+		    for (String data : lines) {
+		    	String[] dataS = data.split(":");
+		    	if (dataS.length >0) {
 		    		DB2Employee db2Employee = new DB2Employee();
+		    		db2Employee.setId(Long.parseLong(dataS[0]));
+		    		db2Employee.setEmpName(dataS[1]);
+		    		db2Employee.setEmpId(dataS[2]);
+		    		db2Employee.setStatus(true);
 		    		db2EmployeesL.add(db2Employee);
 				}
 			}
