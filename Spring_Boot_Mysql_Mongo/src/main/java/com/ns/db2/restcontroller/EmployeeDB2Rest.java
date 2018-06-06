@@ -15,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ns.db1.entity.DB1Employee;
 import com.ns.db2.entity.DB2Employee;
 import com.ns.db2.repository.DB2EmployeeRepository;
 
