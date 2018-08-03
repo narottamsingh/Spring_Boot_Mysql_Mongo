@@ -1,4 +1,5 @@
    stages {
+       agent any
         stage('Clean') {
             steps {
                 sh 'mvn clean'
