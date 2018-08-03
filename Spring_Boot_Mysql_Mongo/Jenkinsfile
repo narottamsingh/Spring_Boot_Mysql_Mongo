@@ -1,16 +1,38 @@
-pipeline {   
-     agent any
-stages {
+pipeline {
+   agent any
+   stages {
         stage('Clean') {
             steps {
-                sh 'mvn clean'
-                
+                  echo 'maven cleaning...............'
             }
         }
         stage('Build') {
             steps {
-                sh 'mvn clean install'
-                
+                  echo 'maven building...............'
             }
         }
     }
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
