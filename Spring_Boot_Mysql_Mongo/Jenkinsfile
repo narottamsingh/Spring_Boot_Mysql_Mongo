@@ -4,12 +4,12 @@ pipeline {
    stages {
         stage('Clean') {
             steps {
-                
+                  echo 'maven cleaning...............'
             }
         }
         stage('Build') {
             steps {
-                
+                  echo 'maven building...............'
             }
         }
     }
