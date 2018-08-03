@@ -1,53 +1,14 @@
-pipeline {
-  agent any
-  stages {
-    stage('Build') {
-      steps {
-        sh 'mvn -U -B clean install'
-      }
-      post {
-        success {
-          archiveArtifacts(artifacts: '**/target/*.jar', allowEmptyArchive: true)
+   stages {
+        stage('Clean') {
+            steps {
+                sh 'mvn clean'
+                
+            }
         }
-
-      }
-    }
-    stage('Quality Analysis') {
-      parallel {
-        stage('Integration Test') {
-          agent any
-          steps {
-            echo 'Run integration tests here...'
-          }
+        stage('Build') {
+            steps {
+                sh 'mvn clean install'
+                
+            }
         }
-	stage("SonarQube analysis") {
-     echo 'SonarQube analysis...'
-       }
-  	}
     }
-    stage('Build and Publish Image') {
-      steps {
-        echo 'Build and Publish Image...'
-      }
-    }
-    stage('Deploy Image') {
-      steps {
-         echo 'Deploy Image...'                                                                                         
-      }
-    }
-  }
-	
-  tools {
-    maven 'maven'
-    jdk 'Sun Java 8'
-  }
-  environment {
-    IMAGE = 'sel-core'
-    //IMAGE = readMavenPom().getArtifactId()
-    VERSION = readMavenPom().getVersion()
-    SERVER_MODE = 'dev'
-  }
-  options {
-    timestamps()
-  }
-}
