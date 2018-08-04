@@ -1,7 +1,6 @@
 pipeline {
    agent any
-   stages {
-       def mvnHome
+   def mvnHome
    stage('Preparation') { // for display purposes
       // Get some code from a GitHub repository
       git 'https://github.com/jglick/simple-maven-project-with-tests.git'
@@ -10,8 +9,7 @@ pipeline {
       // **       in the global configuration.           
       mvnHome = tool 'mvn'
    }
-      
-      
+ 
         stage('Clean') {
             steps {
                   echo 'maven cleaning...............'
@@ -24,8 +22,6 @@ pipeline {
                   sh '${mvnHome}/bin/mvn clean install'
             }
         }
-    }
-  
 }
 
 
