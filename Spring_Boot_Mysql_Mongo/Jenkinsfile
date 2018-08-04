@@ -1,15 +1,26 @@
 pipeline {
    agent any
+   def mvnHome
+   stage('Preparation') { // for display purposes
+      // Get some code from a GitHub repository
+      git 'https://github.com/jglick/simple-maven-project-with-tests.git'
+      // Get the Maven tool.
+      // ** NOTE: This 'M3' Maven tool must be configured
+      // **       in the global configuration.           
+      mvnHome = tool 'mvn'
+   }
+   
    stages {
         stage('Clean') {
             steps {
                   echo 'maven cleaning...............'
+                  sh '${mvnHome}/bin/mvn clean'
             }
         }
         stage('Build') {
             steps {
                   echo 'maven building...............'
-                  sh 'mvn clean'
+                  sh '${mvnHome}/bin/mvn clean install'
             }
         }
     }
