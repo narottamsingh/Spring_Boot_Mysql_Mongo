@@ -14,7 +14,7 @@ pipeline {
         }
     }
    tools {
-    maven 'maven'
+    maven 'mvn'
     jdk 'Sun Java 8'
   }
   
