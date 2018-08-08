@@ -17,10 +17,5 @@ pipeline {
                   sh 'mvn clean'
             }
         }
-    }
-   tools {
-    maven 'mvn'
-    jdk 'Sun Java 8'
-  }
-  
+   } 
 }
