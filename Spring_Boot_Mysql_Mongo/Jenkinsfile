@@ -9,7 +9,7 @@ pipeline {
         stage('Build') {
             steps {
                   echo 'maven building...............'
-                  sh 'mvn clean'
+                sh 'mvn -U -B clean install -DPROD_HOME=/home/re50hertz/re-home'
             }
         }
     }
