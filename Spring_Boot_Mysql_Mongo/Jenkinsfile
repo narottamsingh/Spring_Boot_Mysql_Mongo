@@ -7,7 +7,13 @@ pipeline {
         stage('clean') {
             steps {
                 sh 'mvn --version'
-                sh 'mvn clean'
+                sh 'cd Spring_Boot_Mysql_Mongo && mvn clean'
+            }
+        }
+         stage('build') {
+            steps {
+                sh 'mvn --version'
+                sh 'cd Spring_Boot_Mysql_Mongo && mvn clean install'
             }
         }
     }
