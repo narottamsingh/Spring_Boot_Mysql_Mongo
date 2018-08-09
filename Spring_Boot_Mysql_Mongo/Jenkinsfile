@@ -1,24 +1,14 @@
 pipeline {
-   agent any
-   tools {
-    maven 'maven'
-    jdk 'Sun Java 8'
-  }
-   stages {
-        stage('Clean') {
+    agent any
+    tools {
+        maven 'maven' 
+    }
+    stages {
+        stage('clean') {
             steps {
-                  echo 'mvn cleaning...............'
-                  sh 'mvn --version'
-                  sh 'mvn clean'
-            }
-        }
-        stage('Build') {
-            steps {
-                echo 'maven building...............'
-                sh 'mvn -U -B clean install -DPROD_HOME=/home/re50hertz/re-home'
+                sh 'mvn --version'
+                sh 'mvn clean'
             }
         }
     }
-   
-  
 }
