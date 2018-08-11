@@ -17,7 +17,12 @@ pipeline {
           steps {
             echo 'Run integration tests here...'
           }
-        }
+        }  
+      stage("SonarQube analysis") {
+         steps {
+           echo 'SonarQube analysis...' 
+          }
+       }
       }
        }
          stage('build') {
@@ -26,5 +31,17 @@ pipeline {
                 sh 'cd Spring_Boot_Mysql_Mongo && mvn clean install -Dmaven.test.skip=true'
             }
         }
+        
+      stage('Build and Publish Image') {
+      steps {
+        echo 'Build and Publish Image...' 
+      }
+    }
+    stage('Deploy Image') {
+      steps {
+           echo 'Deploy Image...'                                                                                       
+      }
+    }
+        
     }
 }
