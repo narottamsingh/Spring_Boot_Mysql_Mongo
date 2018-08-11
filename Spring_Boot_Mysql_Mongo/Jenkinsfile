@@ -9,14 +9,7 @@ pipeline {
                 sh 'mvn --version'
                 sh 'cd Spring_Boot_Mysql_Mongo && mvn clean'
             }
-        }
-         stage('build') {
-            steps {
-                sh 'mvn --version'
-                sh 'cd Spring_Boot_Mysql_Mongo && mvn clean install -Dmaven.test.skip=true'
-            }
-        }
-        
+        } 
      stage('Quality Analysis') {
       parallel {
         stage('Integration Test') {
@@ -27,5 +20,11 @@ pipeline {
         }
       }
        }
+         stage('build') {
+            steps {
+                sh 'mvn --version'
+                sh 'cd Spring_Boot_Mysql_Mongo && mvn clean install -Dmaven.test.skip=true'
+            }
+        }
     }
 }
