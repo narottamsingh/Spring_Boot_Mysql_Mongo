@@ -16,5 +16,16 @@ pipeline {
                 sh 'cd Spring_Boot_Mysql_Mongo && mvn clean install -Dmaven.test.skip=true'
             }
         }
+        
+     stage('Quality Analysis') {
+      parallel {
+        stage('Integration Test') {
+          agent any
+          steps {
+            echo 'Run integration tests here...'
+          }
+        }
+      }
+       }
     }
 }
