@@ -50,7 +50,7 @@ pipeline {
     environment {
     IMAGE = 'db'
     //IMAGE = readMavenPom().getArtifactId()
-    VERSION = readMavenPom().getVersion()
+    //VERSION = readMavenPom().getVersion()
     SERVER_MODE = 'dev'
   }
     
