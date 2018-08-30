@@ -21,7 +21,7 @@ pipeline {
       stage("SonarQube analysis") {
          steps {
            echo 'SonarQube analysis...' 
-           sh 'cd Spring_Boot_Mysql_Mongo && mvn sonar:sonar   -Dsonar.host.url=http://localhost:9000   -Dsonar.login=370c0a2376851662baf405072c1375322bdbe24f'
+           sh 'cd Spring_Boot_Mysql_Mongo && mvn sonar:sonar   -Dsonar.host.url=http://sonarqube:9000   -Dsonar.login=370c0a2376851662baf405072c1375322bdbe24f'
           }
        }
       }
