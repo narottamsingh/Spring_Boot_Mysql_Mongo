@@ -46,4 +46,16 @@ pipeline {
     }
         
     }
+    
+    environment {
+    IMAGE = 'db'
+    //IMAGE = readMavenPom().getArtifactId()
+    VERSION = readMavenPom().getVersion()
+    SERVER_MODE = 'dev'
+  }
+    
+    options {
+    timestamps()
+  }
+    
 }
