@@ -35,8 +35,8 @@ pipeline {
       stage('Create Docker') {
       steps {
         echo 'Build and Publish Image...' 
+         sh 'cd Spring_Boot_Mysql_Mongo'
          sh """
-         cd Spring_Boot_Mysql_Mongo
          docker build -t ${IMAGE} .
          docker tag ${IMAGE} ${IMAGE}:${BRANCH_NAME}
      
