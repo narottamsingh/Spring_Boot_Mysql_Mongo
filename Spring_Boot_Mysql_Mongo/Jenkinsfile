@@ -21,7 +21,7 @@ pipeline {
       stage("SonarQube analysis") {
          steps {
            echo 'SonarQube analysis...' 
-           sh 'cd Spring_Boot_Mysql_Mongo && mvn clean compile sonar:sonar -Dsonar.host.url=http://sonarqube:9000   -Dsonar.login=370c0a2376851662baf405072c1375322bdbe24f'
+          // sh 'cd Spring_Boot_Mysql_Mongo && mvn clean compile sonar:sonar -Dsonar.host.url=http://sonarqube:9000   -Dsonar.login=370c0a2376851662baf405072c1375322bdbe24f'
           }
        }
       }
@@ -35,8 +35,11 @@ pipeline {
       stage('Create Docker') {
       steps {
         echo 'Build and Publish Image...' 
-          sh 'docker build -t db'
-          sh 'docker tag db db:master'
+         sh """
+         cd Spring_Boot_Mysql_Mongo
+         docker build -t ${IMAGE} .
+         docker tag ${IMAGE} ${IMAGE}:${BRANCH_NAME}
+     
       }
     }
     stage('Deploy Image') {
@@ -49,6 +52,7 @@ pipeline {
     
     environment {
     IMAGE = 'db'
+    BRANCH_NAME='master'
     //IMAGE = readMavenPom().getArtifactId()
     //VERSION = readMavenPom().getVersion()
     SERVER_MODE = 'dev'
