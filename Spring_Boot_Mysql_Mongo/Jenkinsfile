@@ -7,7 +7,7 @@ pipeline {
         stage('Project Cleaning') {
             steps {
                 sh 'mvn --version'
-                sh 'cd Spring_Boot_Mysql_Mongo && mvn clean'
+                sh 'mvn clean -f Spring_Boot_Mysql_Mongo/pom.xml'
             }
         } 
      stage('Quality Analysis') {
@@ -28,7 +28,7 @@ pipeline {
        }
          stage('Project Building') {
             steps {
-                sh 'cd Spring_Boot_Mysql_Mongo && mvn clean install -Dmaven.test.skip=true'
+                sh 'mvn clean install -Dmaven.test.skip=true -f Spring_Boot_Mysql_Mongo/pom.xml'
             }
         }
         
