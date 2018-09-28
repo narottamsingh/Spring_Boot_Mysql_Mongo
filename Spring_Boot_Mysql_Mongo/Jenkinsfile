@@ -35,13 +35,22 @@ pipeline {
       stage('Create Docker') {
       steps {
         echo 'Build and Publish Image...' 
-         sh 'docker build -t ${IMAGE} Spring_Boot_Mysql_Mongo'
-       
+         //sh 'docker build -t ${IMAGE} Spring_Boot_Mysql_Mongo'
+        sh """
+     docker ps -f status=running -f name=${IMAGE}-${env.BRANCH_NAME} | grep ${IMAGE}-${env.BRANCH_NAME} && docker stop ${IMAGE}-${env.BRANCH_NAME}
+     docker ps -a -f status=exited -f name=${IMAGE}-${env.BRANCH_NAME} | grep ${IMAGE}-${env.BRANCH_NAME} && docker rm ${IMAGE}-${env.BRANCH_NAME}
+     docker build -t ${IMAGE} Spring_Boot_Mysql_Mongo
+     docker tag ${IMAGE} ${IMAGE}:${env.BRANCH_NAME}
+                                                                                                        """
       }
     }
     stage('Deploy Image') {
       steps {
-           echo 'Deploy Image...'                                                                                       
+           echo 'Deploy Image...'   
+                   sh """
+    docker run -d --restart=always --name ${IMAGE}-${env.BRANCH_NAME} -e VIRTUAL_HOST=${IMAGE}-${env.BRANCH_NAME}.localhost ${IMAGE}:${env.BRANCH_NAME}
+                                                                                                        """
+  
       }
     }
         
