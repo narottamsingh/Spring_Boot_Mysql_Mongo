@@ -1,0 +1,71 @@
+pipeline {
+    agent any
+    tools {
+        maven 'maven' 
+    }
+    stages {
+        stage('Project Cleaning') {
+            steps {
+                sh 'mvn --version'
+                sh 'mvn clean -f Spring_Boot_Mysql_Mongo/pom.xml'
+            }
+        } 
+     stage('Quality Analysis') {
+      parallel {
+        stage('Integration Testing') {
+          agent any
+          steps {
+            echo 'Run integration tests here...'
+          }
+        }  
+      stage("SonarQube analysis") {
+         steps {
+           echo 'SonarQube analysis...' 
+          // sh 'cd Spring_Boot_Mysql_Mongo && mvn clean compile sonar:sonar -Dsonar.host.url=http://sonarqube:9000   -Dsonar.login=370c0a2376851662baf405072c1375322bdbe24f'
+          }
+       }
+      }
+       }
+         stage('Project Building') {
+            steps {
+                sh 'mvn clean install -Dmaven.test.skip=true -f Spring_Boot_Mysql_Mongo/pom.xml'
+            }
+        }
+        
+      stage('Create Docker') {
+      steps {
+        echo 'Build and Publish Image...' 
+         //sh 'docker build -t ${IMAGE} Spring_Boot_Mysql_Mongo'
+        sh """
+     docker ps -f status=running -f name=${IMAGE}-${env.BRANCH_NAME} | grep ${IMAGE}-${env.BRANCH_NAME} && docker stop ${IMAGE}-${env.BRANCH_NAME}
+     docker ps -a -f status=exited -f name=${IMAGE}-${env.BRANCH_NAME} | grep ${IMAGE}-${env.BRANCH_NAME} && docker rm ${IMAGE}-${env.BRANCH_NAME}
+     docker build -t ${IMAGE} Spring_Boot_Mysql_Mongo
+     docker tag ${IMAGE} ${IMAGE}:${env.BRANCH_NAME}
+                                                                                                        """
+      }
+    }
+    stage('Deploy Image') {
+      steps {
+           echo 'Deploy Image...'   
+                   sh """
+    docker run -d --restart=always --name ${IMAGE}-${env.BRANCH_NAME} -e VIRTUAL_HOST=${IMAGE}-${env.BRANCH_NAME}.localhost ${IMAGE}:${env.BRANCH_NAME}
+                                                                                                        """
+  
+      }
+    }
+        
+    }
+    
+    environment {
+    IMAGE = 'db'
+    BRANCH_NAME='master'
+    //IMAGE = readMavenPom().getArtifactId()
+    //VERSION = readMavenPom().getVersion()
+    SERVER_MODE = 'dev'
+  }
+    
+    options {
+    timestamps()
+  }
+    
+}
