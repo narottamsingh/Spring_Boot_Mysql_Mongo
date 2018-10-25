@@ -48,7 +48,7 @@ pipeline {
       steps {
            echo 'Deploy Image...'   
                    sh """
-    docker run -d --restart=always --name ${IMAGE}-${env.BRANCH_NAME} -e VIRTUAL_HOST=${IMAGE}-${env.BRANCH_NAME}.localhost ${IMAGE}:${env.BRANCH_NAME}
+    docker run -d --network=dockersetup_default --restart=always --name ${IMAGE}-${env.BRANCH_NAME} -e VIRTUAL_HOST=${IMAGE}-${env.BRANCH_NAME}.localhost ${IMAGE}:${env.BRANCH_NAME}
                                                                                                         """
   
       }
